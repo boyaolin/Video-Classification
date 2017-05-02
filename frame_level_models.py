@@ -46,6 +46,8 @@ flags.DEFINE_string("video_level_classifier_model", "MoeModel",
                     "classifier layer")
 flags.DEFINE_integer("lstm_cells", 1024, "Number of LSTM cells.")
 flags.DEFINE_integer("lstm_layers", 2, "Number of LSTM layers.")
+flags.DEFINE_float("z_prob_cells", 0.5, "Zone out probability for LSTM cell.")
+flags.DEFINE_float("z_prob_states", 0.05, "Zone out probability for LSTM hidden states.")
 
 class FrameLevelLogisticModel(models.BaseModel):
 
@@ -304,8 +306,8 @@ class BiLayerNormZoneoutLstmModel(models.BaseModel):
       'batch_size' x 'num_classes'.
     """
 
-    z_prob_cells = 0.5
-    z_prob_states = 0.05
+    z_prob_cells = FLAGS.z_prob_cells
+    z_prob_states = FLAGS.z_prob_states
 
     lstm_size = FLAGS.lstm_cells
 
